@@ -54,9 +54,9 @@ spark = SparkSession.builder \
 # FILES
 # ============================================================
 
-OFFSETS_FILE = "/opt/spark/scripts/offsets.json"
+OFFSETS_FILE = "/opt/airflow/scripts/offsets.json"
 
-SCHEMA_FILE = "/opt/spark/schemas/restaurants.avsc"
+SCHEMA_FILE = "/opt/airflow/schemas/restaurants.avsc"
 
 TOPIC = "restaurant_topic"
 
@@ -175,6 +175,7 @@ restaurant_df = decoded_df.select(
 transformed_df = (
     decoded_df
     .select(
+        lit(TOPIC).alias("kafka_topic"),
         col("partition").alias("kafka_partition"),
         col("offset").alias("kafka_offset"),
         col("restaurant_data.camis").alias("camis"),
@@ -268,7 +269,7 @@ cleaned_df = transformed_df
 # ============================================================
 
 batch_df = cleaned_df.dropDuplicates(
-    ["kafka_partition", "kafka_offset"]
+    ["kafka_topic", "kafka_partition", "kafka_offset"]
 )
 
 
@@ -288,6 +289,7 @@ existing_keys_df = (
         """
         (
             SELECT
+                kafka_topic,
                 kafka_partition,
                 kafka_offset
             FROM staging.restaurant_inspections
@@ -316,7 +318,7 @@ existing_keys_df = (
 
 new_rows_df = batch_df.join(
     existing_keys_df,
-    ["kafka_partition", "kafka_offset"],
+    ["kafka_topic", "kafka_partition", "kafka_offset"],
     "left_anti"
 )
 

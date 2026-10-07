@@ -45,7 +45,7 @@ schema_registry_conf = {
 
 schema_registry_client = SchemaRegistryClient(schema_registry_conf)
 
-with open("schemas/restaurants.avsc", "r") as schema_file:
+with open("/opt/airflow/schemas/restaurants.avsc", "r") as schema_file:
     restaurant_schema = schema_file.read()
 
 avr_serializer = AvroSerializer(
