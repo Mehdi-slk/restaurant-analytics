@@ -1,0 +1,172 @@
+version: 2
+
+models:
+
+  - name: int_restaurant_inspections_recovered
+    description: >
+      Intermediate recovery model that attempts deterministic recovery of
+      missing inspection and restaurant attributes using information already
+      present in the source data. Unrecoverable values remain NULL.
+    columns:
+      - name: restaurant_business_id
+        description: Stable CAMIS identifier for the restaurant.
+
+      - name: restaurant_name
+        description: Restaurant name after deterministic recovery.
+
+      - name: borough
+        description: Borough after deterministic recovery.
+
+      - name: building_number
+        description: Building number after deterministic recovery.
+
+      - name: street_name
+        description: Street name after deterministic recovery.
+
+      - name: zip_code
+        description: ZIP code after deterministic recovery.
+
+      - name: phone_number
+        description: Phone number after deterministic recovery.
+
+      - name: cuisine
+        description: Cuisine after deterministic recovery.
+
+      - name: inspection_datetime
+        description: Inspection date and time.
+
+      - name: inspection_action
+        description: Inspection action after deterministic recovery.
+
+      - name: violation_code
+        description: Original violation code for the inspection line.
+
+      - name: violation_description
+        description: Original violation description.
+
+      - name: violation_critical_flag
+        description: Original violation criticality indicator.
+
+      - name: inspection_score
+        description: Inspection score after deterministic recovery.
+
+      - name: inspection_grade
+        description: Inspection grade after deterministic recovery.
+
+      - name: grade_datetime
+        description: Grade date and time after deterministic recovery.
+
+      - name: record_datetime
+        description: Source record timestamp.
+
+      - name: inspection_type
+        description: Type of inspection.
+
+      - name: community_board
+        description: Community Board after deterministic recovery.
+
+      - name: council_district
+        description: Council district after deterministic recovery.
+
+      - name: census_tract
+        description: Census tract after deterministic recovery.
+
+      - name: building_identification_number
+        description: BIN after deterministic recovery.
+
+      - name: borough_block_lot
+        description: BBL after deterministic recovery.
+
+      - name: neighborhood_tabulation_area
+        description: NTA after deterministic recovery.
+
+      - name: inspection_id
+        description: Deterministic identifier for the inspection event.
+
+
+  - name: int_location
+    description: >
+      Intermediate location model representing the latest known location for
+      each restaurant. Missing attributes are represented as Unknown while
+      preserving any known location information.
+    columns:
+      - name: restaurant_business_id
+        description: Stable CAMIS identifier for the restaurant.
+
+      - name: location_key
+        description: Surrogate key identifying the location combination. -1 represents a completely unknown location.
+
+      - name: borough
+        description: Latest known borough.
+
+      - name: building_number
+        description: Latest known building number.
+
+      - name: street_name
+        description: Latest known street name.
+
+      - name: zip_code
+        description: Latest known ZIP code.
+
+      - name: community_board
+        description: Latest known Community Board.
+
+      - name: council_district
+        description: Latest known Council district.
+
+      - name: census_tract
+        description: Latest known census tract.
+
+      - name: building_identification_number
+        description: Latest known BIN.
+
+      - name: borough_block_lot
+        description: Latest known BBL.
+
+      - name: neighborhood_tabulation_area
+        description: Latest known NTA.
+
+      - name: location_source
+        description: Indicates whether all location attributes are original, partially unknown, or completely unknown.
+
+
+  - name: int_inspection_lines
+    description: >
+      Intermediate inspection-line model that prepares inspection records for
+      the inspection profile and violation dimensions and the fact tables.
+    columns:
+      - name: inspection_id
+        description: Deterministic identifier of the inspection event.
+
+      - name: restaurant_business_id
+        description: Stable CAMIS identifier for the restaurant.
+
+      - name: inspection_datetime
+        description: Date and time of the inspection.
+
+      - name: grade_datetime
+        description: Date and time associated with the grade.
+
+      - name: record_datetime
+        description: Source record timestamp.
+
+      - name: inspection_score
+        description: Score assigned to the inspection.
+
+      - name: violation_code
+        description: Violation code when a violation was recorded.
+
+      - name: profile_key
+        description: Surrogate key identifying the inspection type, action, and grade combination.
+
+      - name: inspection_type
+        description: Type of inspection.
+
+      - name: inspection_action
+        description: Action associated with the inspection.
+
+      - name: inspection_grade
+        description: Grade associated with the inspection. Not Graded represents a missing grade.
+
+      - name: violation_key
+        description: Surrogate key identifying the violation when a violation exists.

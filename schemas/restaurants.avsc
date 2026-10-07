@@ -1,0 +1,161 @@
+{
+  "type": "record",
+  "name": "RestaurantInspection",
+  "namespace": "com.restaurant.analytics",
+  "fields": [
+    {
+      "name": "camis",
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "name": "dba",
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "name": "boro",
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "name": "building",
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "name": "street",
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "name": "zipcode",
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "name": "phone",
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "name": "cuisine_description",
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "name": "inspection_date",
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "name": "action",
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "name": "violation_code",
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "name": "violation_description",
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "name": "critical_flag",
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "name": "score",
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "name": "grade",
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "name": "grade_date",
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "name": "record_date",
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "name": "inspection_type",
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "name": "latitude",
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "name": "longitude",
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "name": "community_board",
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "name": "council_district",
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "name": "census_tract",
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "name": "bin",
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "name": "bbl",
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "name": "nta",
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "name": "location",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "Location",
+          "fields": [
+            {
+              "name": "type",
+              "type": "string"
+            },
+            {
+              "name": "coordinates",
+              "type": {
+                "type": "array",
+                "items": "double"
+              }
+            }
+          ]
+        }
+      ],
+      "default": null
+    }
+  ]
+}

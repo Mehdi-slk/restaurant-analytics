@@ -1,0 +1,93 @@
+[0m16:49:43.364697 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7fc3c272f750>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7fc3bf4e04d0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7fc3bf3e6c90>]}
+
+
+============================== 16:49:43.374903 | 3499fa80-3b5e-40eb-84ab-191582d18609 ==============================
+[0m16:49:43.374903 [info ] [MainThread]: Running with dbt=1.12.5
+[0m16:49:43.376212 [debug] [MainThread]: running dbt with arguments {'debug': 'False', 'log_format': 'default', 'maximum_seed_size_mib': '1', 'warn_error': 'None', 'profiles_dir': '/root/.dbt', 'use_experimental_parser': 'False', 'empty': 'None', 'indirect_selection': 'eager', 'partial_parse': 'True', 'target_path': 'None', 'printer_width': '80', 'cache_selected_only': 'False', 'no_print': 'None', 'fail_fast': 'False', 'quiet': 'False', 'hints_enabled': 'True', 'log_cache_events': 'False', 'use_colors': 'True', 'introspect': 'True', 'version_check': 'True', 'static_parser': 'True', 'invocation_command': 'dbt init restaurant_analytics', 'write_json': 'True', 'log_path': 'logs', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'send_anonymous_usage_stats': 'True'}
+[0m16:49:43.416774 [debug] [MainThread]: Starter project path: /usr/local/lib/python3.11/site-packages/dbt/include/starter_project
+[0m16:49:43.431661 [info ] [MainThread]: Setting up your profile.
+[0m16:52:22.877010 [info ] [MainThread]: Profile restaurant_analytics written to /root/.dbt/profiles.yml using target's profile_template.yml and your supplied values.
+[0m16:52:22.882203 [info ] [MainThread]: Running dbt debug to validate the project...
+[0m16:52:22.883617 [info ] [MainThread]: dbt version: 1.12.5
+[0m16:52:22.884445 [info ] [MainThread]: python version: 3.11.16
+[0m16:52:22.885959 [info ] [MainThread]: python path: /usr/local/bin/python3.11
+[0m16:52:22.888977 [info ] [MainThread]: os info: Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.41
+[0m16:52:22.963847 [info ] [MainThread]: Using profiles dir at /root/.dbt
+[0m16:52:22.964721 [info ] [MainThread]: Using profiles.yml file at /root/.dbt/profiles.yml
+[0m16:52:22.965509 [info ] [MainThread]: Using dbt_project.yml file at /usr/app/restaurant_analytics/dbt_project.yml
+[0m16:52:22.970362 [info ] [MainThread]: adapter type: postgres
+[0m16:52:22.971078 [info ] [MainThread]: adapter version: 1.11.0
+[0m16:52:23.184145 [info ] [MainThread]: Configuration:
+[0m16:52:23.185263 [info ] [MainThread]:   profiles.yml file [[32mOK found and valid[0m]
+[0m16:52:23.185931 [info ] [MainThread]:   dbt_project.yml file [[32mOK found and valid[0m]
+[0m16:52:23.186665 [info ] [MainThread]: Required dependencies:
+[0m16:52:23.187431 [debug] [MainThread]: Executing "git --help"
+[0m16:52:23.213111 [debug] [MainThread]: STDOUT: "b"usage: git [-v | --version] [-h | --help] [-C <path>] [-c <name>=<value>]\n           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]\n           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--no-lazy-fetch]\n           [--no-optional-locks] [--no-advice] [--bare] [--git-dir=<path>]\n           [--work-tree=<path>] [--namespace=<name>] [--config-env=<name>=<envvar>]\n           <command> [<args>]\n\nThese are common Git commands used in various situations:\n\nstart a working area (see also: git help tutorial)\n   clone     Clone a repository into a new directory\n   init      Create an empty Git repository or reinitialize an existing one\n\nwork on the current change (see also: git help everyday)\n   add       Add file contents to the index\n   mv        Move or rename a file, a directory, or a symlink\n   restore   Restore working tree files\n   rm        Remove files from the working tree and from the index\n\nexamine the history and state (see also: git help revisions)\n   bisect    Use binary search to find the commit that introduced a bug\n   diff      Show changes between commits, commit and working tree, etc\n   grep      Print lines matching a pattern\n   log       Show commit logs\n   show      Show various types of objects\n   status    Show the working tree status\n\ngrow, mark and tweak your common history\n   branch    List, create, or delete branches\n   commit    Record changes to the repository\n   merge     Join two or more development histories together\n   rebase    Reapply commits on top of another base tip\n   reset     Reset current HEAD to the specified state\n   switch    Switch branches\n   tag       Create, list, delete or verify a tag object signed with GPG\n\ncollaborate (see also: git help workflows)\n   fetch     Download objects and refs from another repository\n   pull      Fetch from and integrate with another repository or a local branch\n   push      Update remote refs along with associated objects\n\n'git help -a' and 'git help -g' list available subcommands and some\nconcept guides. See 'git help <command>' or 'git help <concept>'\nto read about a specific subcommand or concept.\nSee 'git help git' for an overview of the system.\n""
+[0m16:52:23.213867 [debug] [MainThread]: STDERR: "b''"
+[0m16:52:23.214417 [info ] [MainThread]:  - git [[32mOK found[0m]
+
+[0m16:52:23.214996 [info ] [MainThread]: Connection:
+[0m16:52:23.215623 [info ] [MainThread]:   host: postgres
+[0m16:52:23.216372 [info ] [MainThread]:   port: 5432
+[0m16:52:23.216941 [info ] [MainThread]:   user: admin
+[0m16:52:23.217504 [info ] [MainThread]:   database: restaurant
+[0m16:52:23.218101 [info ] [MainThread]:   schema: analytics
+[0m16:52:23.218666 [info ] [MainThread]:   connect_timeout: 10
+[0m16:52:23.219255 [info ] [MainThread]:   role: None
+[0m16:52:23.219818 [info ] [MainThread]:   search_path: None
+[0m16:52:23.220411 [info ] [MainThread]:   keepalives_idle: 0
+[0m16:52:23.220859 [info ] [MainThread]:   sslmode: None
+[0m16:52:23.221334 [info ] [MainThread]:   sslcert: None
+[0m16:52:23.221969 [info ] [MainThread]:   sslkey: None
+[0m16:52:23.222498 [info ] [MainThread]:   sslrootcert: None
+[0m16:52:23.223074 [info ] [MainThread]:   application_name: dbt
+[0m16:52:23.223654 [info ] [MainThread]:   autocommit: False
+[0m16:52:23.224211 [info ] [MainThread]:   retries: 1
+[0m16:52:23.225303 [info ] [MainThread]: Registered adapter: postgres=1.11.0
+[0m16:52:23.367474 [debug] [MainThread]: Acquiring new postgres connection 'debug'
+[0m16:52:23.456956 [debug] [MainThread]: Using postgres connection "debug"
+[0m16:52:23.457738 [debug] [MainThread]: On debug: select 1 as id
+[0m16:52:23.458261 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m16:52:23.500580 [debug] [MainThread]: SQL status: SELECT 1 in 0.042 seconds
+[0m16:52:23.502952 [debug] [MainThread]: On debug: Close
+[0m16:52:23.503708 [info ] [MainThread]:   Connection test: [[32mOK connection ok[0m]
+
+[0m16:52:23.504384 [info ] [MainThread]: [32mAll checks passed![0m
+[0m16:52:23.505306 [info ] [MainThread]: Your new dbt project "restaurant_analytics" was created!
+Initialized new project in /usr/app/restaurant_analytics/restaurant_analytics
+
+For more information on how to configure the profiles.yml file,
+please consult the dbt documentation here:
+
+  https://docs.getdbt.com/docs/configure-your-profile
+
+One more thing:
+
+Need help? Don't hesitate to reach out to us via GitHub issues or on Slack:
+
+  https://community.getdbt.com/
+
+Happy modeling!
+
+[0m16:52:23.508485 [debug] [MainThread]: Resource report: {"command_name": "init", "command_success": true, "command_wall_clock_time": 160.98448, "process_in_blocks": "130008", "process_kernel_time": 0.820749, "process_mem_max_rss": "124392", "process_out_blocks": "2312", "process_user_time": 3.172896}
+[0m16:52:23.509277 [debug] [MainThread]: Command `dbt init` succeeded at 16:52:23.509128 after 160.99 seconds
+[0m16:52:23.509767 [debug] [MainThread]: Connection 'debug' was properly closed.
+[0m16:52:23.510400 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7fc3bf411110>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7fc3be7b0ad0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7fc3be3570d0>]}
+[0m16:52:23.511030 [debug] [MainThread]: Flushing usage events
+[0m16:52:24.193894 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m17:04:41.332446 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7fba42cdb110>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7fba42bb3a50>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7fba42e32650>]}
+
+
+============================== 17:04:41.341703 | f247436f-9b06-405f-9efe-305b887285e9 ==============================
+[0m17:04:41.341703 [info ] [MainThread]: Running with dbt=1.12.5
+[0m17:04:41.342682 [debug] [MainThread]: running dbt with arguments {'log_format': 'default', 'no_print': 'None', 'maximum_seed_size_mib': '1', 'write_json': 'True', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'warn_error': 'None', 'use_experimental_parser': 'False', 'log_cache_events': 'False', 'invocation_command': 'dbt deps', 'quiet': 'False', 'static_parser': 'True', 'printer_width': '80', 'hints_enabled': 'True', 'introspect': 'True', 'empty': 'None', 'log_path': 'logs', 'target_path': 'None', 'fail_fast': 'False', 'debug': 'False', 'cache_selected_only': 'False', 'version_check': 'True', 'use_colors': 'True', 'partial_parse': 'True', 'indirect_selection': 'eager', 'send_anonymous_usage_stats': 'True', 'profiles_dir': '/root/.dbt'}
+[0m17:04:41.344114 [error] [MainThread]: [[31mERROR[0m]: Encountered an error:
+Runtime Error
+  No dbt_project.yml found at expected path /usr/app/dbt_project.yml
+  Verify that each entry within packages.yml (and their transitive dependencies) contains a file named dbt_project.yml
+  
+[0m17:04:41.345672 [debug] [MainThread]: Resource report: {"command_name": "deps", "command_success": false, "command_wall_clock_time": 0.13148639, "process_in_blocks": "0", "process_kernel_time": 0.356588, "process_mem_max_rss": "109360", "process_out_blocks": "2208", "process_user_time": 2.598005}
+[0m17:04:41.348331 [debug] [MainThread]: Command `dbt deps` failed at 17:04:41.348172 after 0.13 seconds
+[0m17:04:41.348916 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7fba42c86a10>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7fba42bbd310>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7fba42c9b110>]}
+[0m17:04:41.349497 [debug] [MainThread]: Flushing usage events
+[0m17:04:42.025618 [debug] [MainThread]: An error was encountered while trying to flush usage events

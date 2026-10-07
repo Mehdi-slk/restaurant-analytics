@@ -1,0 +1,285 @@
+version: 2
+
+models:
+
+  - name: dim_date
+    description: >
+      Date dimension used to provide calendar attributes for inspection dates
+      and grade dates.
+    columns:
+      - name: date_key
+        description: Surrogate date key in YYYYMMDD format. -1 represents an unknown date.
+        data_tests:
+          - unique
+          - not_null
+
+      - name: full_date
+        description: Calendar date.
+
+      - name: day
+        description: Day of the month.
+
+      - name: month
+        description: Month number.
+
+      - name: month_name
+        description: Full month name.
+
+      - name: quarter
+        description: Calendar quarter.
+
+      - name: year
+        description: Calendar year.
+
+      - name: day_of_week
+        description: ISO day of week, where Monday is 1 and Sunday is 7.
+
+      - name: day_name
+        description: Full day name.
+
+      - name: is_weekend
+        description: Indicates whether the date falls on Saturday or Sunday.
+
+
+  - name: dim_location
+    description: >
+      Type 1 location dimension representing the latest known location
+      associated with each restaurant.
+    columns:
+      - name: location_key
+        description: Surrogate key identifying a location.
+        data_tests:
+          - unique
+          - not_null
+
+      - name: borough
+        description: NYC borough where the restaurant is located.
+        data_tests:
+          - accepted_values:
+              arguments:
+                values:
+                  - Manhattan
+                  - Bronx
+                  - Brooklyn
+                  - Queens
+                  - Staten Island
+                  - Unknown
+
+      - name: building_number
+        description: Building or street number of the restaurant.
+
+      - name: street_name
+        description: Street name of the restaurant.
+
+      - name: zip_code
+        description: ZIP code associated with the restaurant.
+
+      - name: community_board
+        description: NYC Community Board associated with the restaurant.
+
+      - name: council_district
+        description: NYC Council district containing the restaurant.
+
+      - name: census_tract
+        description: Census tract associated with the restaurant.
+
+      - name: building_identification_number
+        description: NYC Building Identification Number (BIN).
+
+      - name: borough_block_lot
+        description: Borough-Block-Lot property identifier (BBL).
+
+      - name: neighborhood_tabulation_area
+        description: NYC Neighborhood Tabulation Area (NTA).
+
+      - name: location_source
+        description: Indicates whether the location is complete, partially unknown, or fully unknown.
+
+
+  - name: dim_restaurant
+    description: >
+      Type 2 restaurant dimension preserving historical restaurant name and
+      cuisine changes while keeping phone as a Type 1 attribute.
+    columns:
+      - name: restaurant_key
+        description: Surrogate key identifying a restaurant version.
+        data_tests:
+          - unique
+          - not_null
+
+      - name: restaurant_business_id
+        description: Stable CAMIS business identifier for the restaurant.
+
+      - name: restaurant_name
+        description: Restaurant business name.
+
+      - name: cuisine
+        description: Cuisine description associated with the restaurant.
+
+      - name: phone_number
+        description: Latest known phone number for the restaurant.
+
+      - name: effective_date
+        description: Date on which this restaurant dimension version became effective.
+
+      - name: end_date
+        description: Date on which this restaurant dimension version ended.
+
+      - name: is_current
+        description: Indicates whether this is the current restaurant dimension version.
+
+
+  - name: dim_violation
+    description: >
+      Type 1 dimension containing unique violation codes and their latest
+      known descriptions and criticality.
+    columns:
+      - name: violation_key
+        description: Surrogate key identifying a violation.
+        data_tests:
+          - unique
+          - not_null
+
+      - name: violation_code
+        description: Inspection violation code.
+
+      - name: violation_description
+        description: Description of the violation.
+
+      - name: violation_critical_flag
+        description: Indicates whether the violation is critical.
+
+
+  - name: dim_inspection_profile
+    description: >
+      Type 0 dimension containing unique combinations of inspection type,
+      inspection action, and inspection grade.
+    columns:
+      - name: profile_key
+        description: Surrogate key identifying an inspection profile.
+        data_tests:
+          - unique
+          - not_null
+
+      - name: inspection_type
+        description: Type of inspection performed.
+
+      - name: inspection_action
+        description: Action recorded for the inspection.
+
+      - name: inspection_grade
+        description: Grade assigned to the inspection. Not Graded represents a missing grade.
+
+
+  - name: fact_inspection
+    description: >
+      Inspection fact table with one row per inspection event.
+      Inspections with the 1900-01-01 placeholder are excluded.
+    columns:
+      - name: inspection_id
+        description: Deterministic identifier for an inspection event.
+        data_tests:
+          - unique
+          - not_null
+
+      - name: restaurant_key
+        description: Foreign key to the restaurant dimension version.
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_restaurant')
+                field: restaurant_key
+
+      - name: location_key
+        description: Foreign key to the location dimension.
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_location')
+                field: location_key
+
+      - name: inspection_date_key
+        description: Foreign key to the inspection date in dim_date.
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_key
+
+      - name: grade_date_key
+        description: Foreign key to the grade date. -1 represents an unknown date.
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_key
+
+      - name: profile_key
+        description: Foreign key to the inspection profile dimension.
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_inspection_profile')
+                field: profile_key
+
+      - name: inspection_score
+        description: Score recorded for the inspection. A value of 0 is retained as a valid score.
+
+
+  - name: fact_violation
+    description: >
+      Violation fact table containing one row per violation code associated
+      with an inspection. Inspections with no violations do not create rows.
+    columns:
+      - name: violation_row_id
+        description: Unique identifier for a violation row within an inspection.
+        data_tests:
+          - unique
+          - not_null
+
+      - name: inspection_id
+        description: Identifier of the inspection associated with the violation.
+
+      - name: restaurant_key
+        description: Foreign key to the restaurant dimension version.
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_restaurant')
+                field: restaurant_key
+
+      - name: location_key
+        description: Foreign key to the location dimension.
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_location')
+                field: location_key
+
+      - name: inspection_date_key
+        description: Foreign key to the inspection date in dim_date.
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_key
+
+      - name: violation_key
+        description: Foreign key to the violation dimension.
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_violation')
+                field: violation_key
+
+      - name: violation_count
+        description: Count of violations represented by the row. Always 1.

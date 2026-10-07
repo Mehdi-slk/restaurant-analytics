@@ -1,0 +1,85 @@
+version: 2
+
+models:
+
+  - name: stg_restaurant_inspections
+    description: >
+      Staging model that cleans and standardizes the raw restaurant inspection
+      data without changing the raw source. Obvious source placeholders are
+      converted to NULL and source column names are renamed to consistent
+      business-oriented names.
+    columns:
+      - name: restaurant_business_id
+        description: Stable CAMIS identifier for the restaurant.
+
+      - name: restaurant_name
+        description: Restaurant business name.
+
+      - name: borough
+        description: NYC borough where the restaurant is located.
+
+      - name: building_number
+        description: Building or street number of the restaurant.
+
+      - name: street_name
+        description: Street name of the restaurant.
+
+      - name: zip_code
+        description: ZIP code associated with the restaurant.
+
+      - name: phone_number
+        description: Restaurant phone number.
+
+      - name: cuisine
+        description: Cuisine description associated with the restaurant.
+
+      - name: inspection_datetime
+        description: Date and time of the inspection. NULL represents the source's not-inspected placeholder.
+
+      - name: inspection_action
+        description: Action recorded during the inspection.
+
+      - name: violation_code
+        description: Code identifying the violation.
+
+      - name: violation_description
+        description: Description of the violation.
+
+      - name: violation_critical_flag
+        description: Criticality indicator associated with the violation.
+
+      - name: inspection_score
+        description: Score assigned to the inspection.
+
+      - name: inspection_grade
+        description: Grade assigned to the inspection. NULL is retained here until semantic handling.
+
+      - name: grade_datetime
+        description: Date and time associated with the inspection grade.
+
+      - name: record_datetime
+        description: Date and time when the source record was recorded or updated.
+
+      - name: inspection_type
+        description: Type of inspection performed.
+
+      - name: community_board
+        description: NYC Community Board associated with the restaurant.
+
+      - name: council_district
+        description: NYC Council district containing the restaurant.
+
+      - name: census_tract
+        description: Census tract associated with the restaurant.
+
+      - name: building_identification_number
+        description: NYC Building Identification Number (BIN).
+
+      - name: borough_block_lot
+        description: Borough-Block-Lot property identifier (BBL).
+
+      - name: neighborhood_tabulation_area
+        description: NYC Neighborhood Tabulation Area (NTA).
+
+      - name: inspection_id
+        description: Deterministic identifier built from restaurant, inspection date, and inspection type.

@@ -1,0 +1,7 @@
+version: 2
+
+sources:
+  - name: restaurant
+    schema: staging
+    tables:
+      - name: restaurant_inspections
