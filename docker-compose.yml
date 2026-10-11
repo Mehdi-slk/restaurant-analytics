@@ -341,51 +341,30 @@ services:
   # ============================================================
   # SUPERSET METADATA DATABASE
   # ============================================================
-
-  superset-db:
-    image: postgres:16
-    hostname: superset-db
-    container_name: superset-db
-    environment:
-      POSTGRES_DB: superset
-      POSTGRES_USER: superset
-      POSTGRES_PASSWORD: superset
-    volumes:
-      - superset_db_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U superset -d superset"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-
-
   # ============================================================
   # SUPERSET INIT
   # ============================================================
 
   superset-init:
-    image: apache/superset:6.0.0
+    build:
+      context: ./superset
+      dockerfile: Dockerfile
     container_name: superset-init
     depends_on:
-      superset-db:
+      postgres:
         condition: service_healthy
     environment:
-      DATABASE_DIALECT: postgresql
-      DATABASE_USER: superset
-      DATABASE_PASSWORD: superset
-      DATABASE_HOST: superset-db
-      DATABASE_PORT: 5432
-      DATABASE_DB: superset
-
+      SUPERSET_CONFIG_PATH: /app/superset_config.py
       SUPERSET_SECRET_KEY: "change-this-to-a-random-secret-key"
-
       ADMIN_USERNAME: admin
       ADMIN_FIRSTNAME: Superset
       ADMIN_LASTNAME: Admin
       ADMIN_EMAIL: admin@superset.com
       ADMIN_PASSWORD: admin
-
       SUPERSET_LOAD_EXAMPLES: "no"
+    volumes:
+      - ./superset/superset_config.py:/app/superset_config.py:ro
+      - superset_home:/app/superset_home
     command:
       - /bin/sh
       - -c
@@ -398,14 +377,13 @@ services:
           --email "$$ADMIN_EMAIL" \
           --password "$$ADMIN_PASSWORD"
         superset init
-
-
   # ============================================================
   # SUPERSET
   # ============================================================
-
   superset:
-    image: apache/superset:6.0.0
+    build:
+      context: ./superset
+      dockerfile: Dockerfile
     hostname: superset
     container_name: superset
     depends_on:
@@ -414,15 +392,10 @@ services:
     ports:
       - "8088:8088"
     environment:
-      DATABASE_DIALECT: postgresql
-      DATABASE_USER: superset
-      DATABASE_PASSWORD: superset
-      DATABASE_HOST: superset-db
-      DATABASE_PORT: 5432
-      DATABASE_DB: superset
-
+      SUPERSET_CONFIG_PATH: /app/superset_config.py
       SUPERSET_SECRET_KEY: "change-this-to-a-random-secret-key"
     volumes:
+      - ./superset/superset_config.py:/app/superset_config.py:ro
       - superset_home:/app/superset_home
     command:
       - /bin/sh
@@ -433,7 +406,6 @@ services:
           --workers 2 \
           --timeout 120 \
           "superset.app:create_app()"
-
 # ============================================================
 # VOLUMES
 # ============================================================
@@ -444,5 +416,4 @@ volumes:
   kafka_data_3:
   postgres_data:
   pgadmin_data:
-  superset_db_data:
   superset_home:
